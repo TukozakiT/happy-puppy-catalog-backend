@@ -1,0 +1,51 @@
+version: "3.3"
+services:
+  mongo_container:
+    image: mongo
+    restart: always
+    volumes:
+      - ${MONGO_FOLDER}:/data/db
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    networks:
+      - backend-network
+
+  happy_puppy_api:
+    container_name: happy_puppy_api
+    build:
+      args: 
+        - NODE_ENV=development
+      context: .
+    command: node dist/main.js
+    ports:
+      - ${BACK_PORT}:${BACK_PORT}
+    env_file:
+      - .env
+    restart: unless-stopped
+    links:
+      - mongo_container
+    depends_on:
+      - mongo_container
+    volumes:
+      - type: bind
+        source: ${PUBLIC_FOLDER}
+        target: /home/node/api/public
+        volume:
+          nocopy: true
+      - /etc/localtime:/etc/localtime:ro
+    working_dir: /home/node/api
+    networks: 
+      - backend-network
+  
+  happy_puppy_front:
+    build: ../happy-puppy-catalog-react/
+    container_name: happy_puppy_front
+    ports:
+      - ${FRONT_PORT}:${FRONT_PORT}
+    links:
+      - happy_puppy_api
+ 
+networks:
+  backend-network:
