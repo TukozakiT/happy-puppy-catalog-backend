@@ -1,10 +1,11 @@
 version: "3.3"
 services:
   mongo_container:
+    container_name: happy_puppy_mongodb
     image: mongo
     restart: always
     volumes:
-      - ${MONGO_FOLDER}:/data/db
+      - data_volume:/data/db
       - /etc/localtime:/etc/localtime:ro
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
@@ -49,3 +50,5 @@ services:
  
 networks:
   backend-network:
+volumes:
+  data_volume:
