@@ -13,27 +13,33 @@ export class Quotation {
     client: Record<string, any>;
 
     @Prop(raw({
-        productId: { type: Number, required: true },
-        description: { type: String, required: true },
+        product_id: {type: String, required:true},
         quantity: { type: Number, required: true },
-        unity: { type: String, required: true },
-        unityPrice: { type: Number, required: true },
+        unityPrice: { type: String, required: true },
         totalItemPrice: { type: Number, required: true },
     }))
-    product: Record<string, any>;
+    products: Record<string, any>;
 
-    @Prop(raw({
-        quotationId: { type: Number, required: true },
-        createdAt: { type: Date, required: true },
-        sellerId: { type: String },
-        payment: { type: String, required: true },
-        delivery: { type: String, required: true },
-        totalPrice: { type: Number, required: true },
-        status: { type: String, required: true },
-        obs: { type: String }
+    @Prop({required: true })
+    createdAt: Date;
 
-    }))
-    requestInfo: Record<string, any>;
+    @Prop({required: true })
+    sellerId: String;
+
+    @Prop({required: true })
+    payment: String;
+
+    @Prop({required: true })
+    delivery: String
+
+    @Prop({required: true })
+    totalPrice: number;
+
+    @Prop({required: true })
+    status: String;
+
+    @Prop({required: true })
+    obs: String;
 
 
 }
