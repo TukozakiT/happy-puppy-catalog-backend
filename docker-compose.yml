@@ -41,14 +41,6 @@ services:
     working_dir: /home/node/api
     networks: 
       - backend-network
-  
-  happy_puppy_front:
-    build: ../happy-puppy-catalog-react/
-    container_name: happy_puppy_front
-    ports:
-      - ${FRONT_PORT}:${FRONT_PORT}
-    links:
-      - happy_puppy_api
  
 networks:
   backend-network:
