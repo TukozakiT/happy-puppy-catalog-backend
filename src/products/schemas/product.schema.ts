@@ -5,18 +5,40 @@ export type ProductDocument = Product & Document;
 
 @Schema()
 export class Product {
-  @Prop({ required: true })//é obrigatório
+  @Prop({ required: true })
   name: string;
 
-  @Prop()//é opcional
-  age: number;
+  @Prop({ required: true })
+  sku: string;
+
+  @Prop()
+  brand: string;
+
+  @Prop()
+  line: string;
+
+  @Prop({ required: true })
+  price: number;
+
+  @Prop({ required: true })
+  description: string;
 
   @Prop(raw({
-    subprop1: { type: String, required: true }, //sub propriedade obrigatória
-    subprop2: { type: Number }//sub propriedade opcional
+    id: { type: String, required: true }, 
+    name: { type: Number }
   }))
-  test: Record<string, any>;//o teste é do tipo objeto com 2 sub propriedades
+  category: Record<string, any>;
 
+
+  @Prop(raw({
+    indication: { type: String},
+    composition: { type: String, required: true },
+    size: { type: Number, required: true },
+    weight: { type: Number, required: true },
+    color: { type: String},
+    flavor: { type: String},
+  }))
+  details: Record<string, any>;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
