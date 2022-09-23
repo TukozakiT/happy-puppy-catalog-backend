@@ -10,12 +10,3 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  @Get('lalala')
-  teste(): any {
-    return {
-      name:"gui",
-      age:"todas"
-    };
-  }
-}
