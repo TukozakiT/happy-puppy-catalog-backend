@@ -11,23 +11,24 @@ export class ProductsService {
 
   }
   create(createProductDto: CreateProductDto) {
-    const createdCat = new this.productModel(createProductDto);
-    return createdCat.save();
+    const createdProduct = new this.productModel(createProductDto);
+    return createdProduct.save();
   }
 
   findAll() {
-    return `This action returns all products`;
+    const resultado = this.productModel.find().exec();
+    return resultado;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} product`;
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
+  update(id: string, updateProductDto: UpdateProductDto) {
     return `This action updates a #${id} product`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} product`;
   }
 }
