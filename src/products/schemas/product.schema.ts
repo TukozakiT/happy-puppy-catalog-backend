@@ -25,7 +25,7 @@ export class Product {
 
   @Prop(raw({
     id: { type: String, required: true }, 
-    name: { type: Number }
+    name: { type: String }
   }))
   category: Record<string, any>;
 

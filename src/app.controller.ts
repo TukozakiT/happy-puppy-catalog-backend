@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { gunzip } from 'zlib';
 import { AppService } from './app.service';
 
 @Controller()
@@ -8,5 +9,13 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('lalala')
+  teste(): any {
+    return {
+      name:"gui",
+      age:"todas"
+    };
   }
 }
