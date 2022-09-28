@@ -8,27 +8,30 @@ import { Product, ProductDocument } from './schemas/product.schema';
 @Injectable()
 export class ProductsService {
   constructor(@InjectModel(Product.name) private productModel: Model<ProductDocument>){
-
+/* Primeiro de tudo, o NestJS está recendo um Model do Mongoose. aqui ele pede pra vc especificar qual collection do mongoDB ´pertence o Model. nesse caso o Model<ProductDocument> significa q é um Model dos produtos */
   }
-  create(createProductDto: CreateProductDto) {
-    const createdProduct = new this.productModel(createProductDto);
-    return createdProduct.save();
+  async create(createProductDto: CreateProductDto) {
+    /** o DTO é onde a gente faz a tipagem do objeto que vamos receber do frontend. DTO é data transfer object. Vamos receber do front e depois jogar pra dentro do mongo usando o productModel que criamos lá em cima com a ajuda do Mongoose */
+    const createdProduct = new this.productModel(createProductDto); //isso é o mongoose em ação
+    return await createdProduct.save();//outra função do mongoose pra salvar no BD o novo produto
   }
 
-  findAll() {
-    const resultado = this.productModel.find().exec();
+  async findAll() {
+    const resultado = await this.productModel.find().exec();//mongooseeeee!!!
     return resultado;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} product`;
+  async findOne(id: string) {
+    return await this.productModel.findById(id).exec();//olha o mongoose de novo
   }
 
   update(id: string, updateProductDto: UpdateProductDto) {
+    /** Aqui vc vai ter que fazer uma mistura do findByID (usando o ID pra buscar o produto) e o create (usando o DTO pra editar o produto) Vc pode procurar na documentação do mongoose como que faz um findOneAndUpdate, ou busca tutoriais no google pra entender como o mongoose faz isso */
     return `This action updates a #${id} product`;
   }
 
   remove(id: string) {
+    /** Aqui vc tem q fazer oigual o findByID mas trocar por uma função do mongoose que deleta */
     return `This action removes a #${id} product`;
   }
 }

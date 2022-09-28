@@ -9,7 +9,7 @@ export class ProductsController {
 
   
 
-  @Post()
+  @Post()//Aqui dentro vc coloca a URL
   create(@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto);
   }
@@ -19,9 +19,9 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productsService.findOne(id);
+  @Get(':id')//esse :(dois pontos) é que vc recebe uma variavel na URL
+  findOne(@Param('id') id: string) { //aqui está passando o valor da URL pra dentro da variavel "id"
+    return this.productsService.findOne(id); //aqui chama o service
   }
 
   @Patch(':id')
