@@ -43,9 +43,16 @@ export class QuotationsController {
     try {
       const existingQuotation = await this.quotationsService.findOne(id);
       
-      return response.status(HttpStatus.OK).json({
-        message: 'Orçamento encontrado com sucesso', existingQuotation,
-      });
+      if(!!existingQuotation){
+        return response.status(HttpStatus.OK).json({
+          message: 'Orçamento encontrado com sucesso', existingQuotation,
+        });
+      }else{
+        return response.status(204).json({
+          message: `Orçamento #${id} não encontrado`, data:null,
+        });
+      }
+      
     }catch (err) {
       return response.status(err.status).json(err.response);
     }
