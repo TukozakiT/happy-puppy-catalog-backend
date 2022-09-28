@@ -7,7 +7,7 @@ export type QuotationDocument = Quotation & Document;
 export class Quotation {
     @Prop(raw({
         name: { type: String, required: true },
-        email: { type: String },
+        email: { type: String, required: false },
         cellphone: { type: Number, required: true }
     }))
     client: Record<string, any>;
@@ -45,6 +45,5 @@ export class Quotation {
 }
 
 export const QuotationSchema = SchemaFactory.createForClass(Quotation);
-
 
 
