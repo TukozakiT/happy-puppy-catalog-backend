@@ -30,9 +30,16 @@ export class QuotationsController {
   async findAll(@Res() response) {
     try {
       const quotationData = await this.quotationsService.findAll();
-      return response.status(HttpStatus.OK).json({
-        message: 'Todos os orçamentos foram encontrados com sucesso', quotationData,
-      });
+      if(!!quotationData){
+        return response.status(HttpStatus.OK).json({
+          message: 'Todos os orçamentos foram encontrados com sucesso', quotationData,
+        });
+      }else {
+        return response.status(204).json({
+          message: `Nenhum orçamento encontrado!`, data:null,
+        });
+      }
+      
     }catch (err) {
       return response.status(err.status).json(err.response);
     }
@@ -63,9 +70,16 @@ export class QuotationsController {
     try {
       const existingQuotation = await this.quotationsService.update(id, updateQuotationDto);
 
-      return response.status(HttpStatus.OK).json({
-        message: 'Orçamento foi atualizado com sucesso', existingQuotation,
-      });
+      if(!!existingQuotation){
+        return response.status(HttpStatus.OK).json({
+          message: 'Orçamento foi atualizado com sucesso', existingQuotation,
+        });
+      }else {
+        return response.status(204).json({
+          message: `Orçamento #${id} não encontrado`, data:null,
+        });
+      }
+      
     }catch (err) {
       return response.status(err.status).json(err.response);
     }
@@ -77,9 +91,16 @@ export class QuotationsController {
     try{
       const deletedQuotation = await this.quotationsService.remove(id);
 
-      return response.status(HttpStatus.OK).json({
-        message:'Orçamento deletado com sucesso', deletedQuotation,
-      });
+      if(!!deletedQuotation){
+        return response.status(HttpStatus.OK).json({
+          message:'Orçamento deletado com sucesso', deletedQuotation,
+        });
+      }else {
+        return response.status(204).json({
+          message: `Orçamento #${id} não encontrado`, data:null,
+        });
+      }
+      
     }catch (err) {
       return response.status(err.status).json(err.response);
     }

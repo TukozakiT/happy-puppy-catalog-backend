@@ -23,8 +23,8 @@ export class ProductDetails {
     @IsString()
     unity: string;
 
-    @IsString()
-    unityPrice: string;
+    @IsNumber()
+    unityPrice: number;
 
     @IsNumber()
     totalItemPrice: number;
