@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ProductsModule } from './products/products.module';
 import { ConfigModule } from '@nestjs/config';
 import { QuotationsModule } from './quotations/quotations.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { QuotationsModule } from './quotations/quotations.module';
     MongooseModule.forRoot('mongodb://root:asdasd123@happy_puppy_mongodb:27017',{dbName: 'puppydb'}),
     ProductsModule,
     QuotationsModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
