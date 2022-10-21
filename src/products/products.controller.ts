@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { GetProductDto } from './dto/get-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -15,8 +16,8 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  findAll(@Query() getProductDto: GetProductDto) {
+    return this.productsService.findAll(getProductDto.page);
   }
 
   @Get(':id')//esse :(dois pontos) é que vc recebe uma variavel na URL
