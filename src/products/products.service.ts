@@ -17,13 +17,37 @@ export class ProductsService {
     return await createdProduct.save();//outra função do mongoose pra salvar no BD o novo produto
   }
 
-  async findAll() {   //get all???
-    const resultado = await this.productModel.find().exec();//mongooseeeee!!!
-    return resultado;
+  async findAll(page: number){//get all???
+
+    let resultado;
+    
+    if (page <= 1){
+      resultado = await this.productModel.find().skip(0).limit(16).exec();
+    }
+
+    else {
+      let x; 
+      x = page * 16 - 16;
+      resultado = await this.productModel.find().skip(x).limit(16).exec();
+    }
+
+    let totalProducts = await this.productModel.countDocuments({});
+    let pagesQuantity = Math.ceil(totalProducts / 16); 
+
+    return {
+      products:resultado,
+      pagesQuantity: pagesQuantity,
+      totalProducts: totalProducts
+    }
+  }
+    
+
+     
+  
 
     // poderia ser 
     // return await this.productModel.find().exec();
-  }
+  
 
   async findOne(id: string) {    //poderi ser getById??
     return await this.productModel.findById(id).exec();//olha o mongoose de novo
