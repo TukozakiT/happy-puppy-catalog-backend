@@ -6,6 +6,7 @@ import { ProductsModule } from './products/products.module';
 import { ConfigModule } from '@nestjs/config';
 import { QuotationsModule } from './quotations/quotations.module';
 import { CategoriesModule } from './categories/categories.module';
+import { MediaFileModule } from './media-file/media-file.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { CategoriesModule } from './categories/categories.module';
     ProductsModule,
     QuotationsModule,
     CategoriesModule,
+    MediaFileModule
   ],
   controllers: [AppController],
   providers: [AppService],
